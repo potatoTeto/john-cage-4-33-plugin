@@ -1,9 +1,9 @@
 # John Cage's 4'33'' Plugin
 
-![screenshot](screenshot.png)
+[![screenshot](screenshot.png)](https://github.com/potatoTeto/john-cage-4-33-plugin/releases)
 
 ## Download Link
-https://github.com/john-cage-4-33-plugin/433/releases
+https://github.com/potatoTeto/john-cage-4-33-plugin/releases
 
 ## Overview
 
