@@ -1,6 +1,6 @@
 #include "PluginEditor.h"
 
-DPCMBitcrusherAudioProcessorEditor::DPCMBitcrusherAudioProcessorEditor(DPCMBitcrusherAudioProcessor& p, juce::AudioProcessorValueTreeState& state)
+CAudioProcessorEditor::CAudioProcessorEditor(CAudioProcessor& p, juce::AudioProcessorValueTreeState& state)
     : AudioProcessorEditor(&p), processorRef(p), apvts(state)
 {
     _inputGainAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(
@@ -48,9 +48,9 @@ DPCMBitcrusherAudioProcessorEditor::DPCMBitcrusherAudioProcessorEditor(DPCMBitcr
     setSize(300, 350);
 }
 
-DPCMBitcrusherAudioProcessorEditor::~DPCMBitcrusherAudioProcessorEditor() {}
+CAudioProcessorEditor::~CAudioProcessorEditor() {}
 
-void DPCMBitcrusherAudioProcessorEditor::paint(juce::Graphics& g)
+void CAudioProcessorEditor::paint(juce::Graphics& g)
 {
     g.fillAll(juce::Colours::black);
     g.setColour(juce::Colours::white);
@@ -58,7 +58,7 @@ void DPCMBitcrusherAudioProcessorEditor::paint(juce::Graphics& g)
     g.drawFittedText("John Cage's 4'33'' Plugin v1.0 by potatoTeto", getLocalBounds().removeFromTop(30), juce::Justification::centred, 1);
 }
 
-void DPCMBitcrusherAudioProcessorEditor::resized()
+void CAudioProcessorEditor::resized()
 {
     auto area = getLocalBounds().reduced(20);
     auto rowHeight = 40;

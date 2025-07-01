@@ -3,11 +3,11 @@
 #include <JuceHeader.h>
 #include <juce_dsp/juce_dsp.h>
 
-class DPCMBitcrusherAudioProcessor : public juce::AudioProcessor
+class CAudioProcessor : public juce::AudioProcessor
 {
 public:
-    DPCMBitcrusherAudioProcessor();
-    ~DPCMBitcrusherAudioProcessor() override;
+    CAudioProcessor();
+    ~CAudioProcessor() override;
 
     void prepareToPlay(double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
@@ -38,5 +38,5 @@ public:
 private:
     juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DPCMBitcrusherAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CAudioProcessor)
 };

@@ -1,7 +1,7 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-DPCMBitcrusherAudioProcessor::DPCMBitcrusherAudioProcessor()
+CAudioProcessor::CAudioProcessor()
     : AudioProcessor(BusesProperties()
         .withInput("Input", juce::AudioChannelSet::stereo(), true)
         .withOutput("Output", juce::AudioChannelSet::stereo(), true)),
@@ -9,22 +9,22 @@ DPCMBitcrusherAudioProcessor::DPCMBitcrusherAudioProcessor()
 {
 }
 
-DPCMBitcrusherAudioProcessor::~DPCMBitcrusherAudioProcessor() {}
+CAudioProcessor::~CAudioProcessor() {}
 
-const juce::String DPCMBitcrusherAudioProcessor::getName() const { return JucePlugin_Name; }
+const juce::String CAudioProcessor::getName() const { return JucePlugin_Name; }
 
-bool DPCMBitcrusherAudioProcessor::acceptsMidi() const { return false; }
-bool DPCMBitcrusherAudioProcessor::producesMidi() const { return false; }
-bool DPCMBitcrusherAudioProcessor::isMidiEffect() const { return false; }
-double DPCMBitcrusherAudioProcessor::getTailLengthSeconds() const { return 0.0; }
+bool CAudioProcessor::acceptsMidi() const { return false; }
+bool CAudioProcessor::producesMidi() const { return false; }
+bool CAudioProcessor::isMidiEffect() const { return false; }
+double CAudioProcessor::getTailLengthSeconds() const { return 0.0; }
 
-int DPCMBitcrusherAudioProcessor::getNumPrograms() { return 1; }
-int DPCMBitcrusherAudioProcessor::getCurrentProgram() { return 0; }
-void DPCMBitcrusherAudioProcessor::setCurrentProgram(int) {}
-const juce::String DPCMBitcrusherAudioProcessor::getProgramName(int) { return {}; }
-void DPCMBitcrusherAudioProcessor::changeProgramName(int, const juce::String&) {}
+int CAudioProcessor::getNumPrograms() { return 1; }
+int CAudioProcessor::getCurrentProgram() { return 0; }
+void CAudioProcessor::setCurrentProgram(int) {}
+const juce::String CAudioProcessor::getProgramName(int) { return {}; }
+void CAudioProcessor::changeProgramName(int, const juce::String&) {}
 
-void DPCMBitcrusherAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
+void CAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock)
 {
     juce::dsp::ProcessSpec spec;
     spec.sampleRate = sampleRate;
@@ -34,9 +34,9 @@ void DPCMBitcrusherAudioProcessor::prepareToPlay(double sampleRate, int samplesP
     dryWet.prepare(spec);
 }
 
-void DPCMBitcrusherAudioProcessor::releaseResources() {}
+void CAudioProcessor::releaseResources() {}
 
-void DPCMBitcrusherAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer&)
+void CAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer&)
 {
     const bool isBypassed = apvts.getRawParameterValue("bypass")->load() > 0.5f;
     if (isBypassed)
@@ -70,13 +70,13 @@ void DPCMBitcrusherAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer
     }
 }
 
-bool DPCMBitcrusherAudioProcessor::hasEditor() const { return true; }
-juce::AudioProcessorEditor* DPCMBitcrusherAudioProcessor::createEditor()
+bool CAudioProcessor::hasEditor() const { return true; }
+juce::AudioProcessorEditor* CAudioProcessor::createEditor()
 {
-    return new DPCMBitcrusherAudioProcessorEditor(*this, apvts);
+    return new CAudioProcessorEditor(*this, apvts);
 }
 
-void DPCMBitcrusherAudioProcessor::getStateInformation(juce::MemoryBlock& destData)
+void CAudioProcessor::getStateInformation(juce::MemoryBlock& destData)
 {
     auto state = apvts.copyState();
     if (state.isValid())
@@ -86,14 +86,14 @@ void DPCMBitcrusherAudioProcessor::getStateInformation(juce::MemoryBlock& destDa
     }
 }
 
-void DPCMBitcrusherAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
+void CAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
     std::unique_ptr<juce::XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
     if (xmlState)
         apvts.replaceState(juce::ValueTree::fromXml(*xmlState));
 }
 
-juce::AudioProcessorValueTreeState::ParameterLayout DPCMBitcrusherAudioProcessor::createParameterLayout()
+juce::AudioProcessorValueTreeState::ParameterLayout CAudioProcessor::createParameterLayout()
 {
     std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
 
@@ -111,5 +111,5 @@ juce::AudioProcessorValueTreeState::ParameterLayout DPCMBitcrusherAudioProcessor
 
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new DPCMBitcrusherAudioProcessor();
+    return new CAudioProcessor();
 }

@@ -3,17 +3,17 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 
-class DPCMBitcrusherAudioProcessorEditor : public juce::AudioProcessorEditor
+class CAudioProcessorEditor : public juce::AudioProcessorEditor
 {
 public:
-    DPCMBitcrusherAudioProcessorEditor(DPCMBitcrusherAudioProcessor&, juce::AudioProcessorValueTreeState&);
-    ~DPCMBitcrusherAudioProcessorEditor() override;
+    CAudioProcessorEditor(CAudioProcessor&, juce::AudioProcessorValueTreeState&);
+    ~CAudioProcessorEditor() override;
 
     void paint(juce::Graphics&) override;
     void resized() override;
 
 private:
-    DPCMBitcrusherAudioProcessor& processorRef;
+    CAudioProcessor& processorRef;
     juce::AudioProcessorValueTreeState& apvts;
 
     juce::Slider _inputGainSlider;
@@ -30,5 +30,5 @@ private:
     juce::Label _outputGainLabel;
     juce::Label _mixLabel;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DPCMBitcrusherAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CAudioProcessorEditor)
 };
